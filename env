@@ -1,0 +1,5 @@
+APP_PORT=3500
+DB_PORT=3306
+DB_NAME=squeleton
+DB_USER=root
+DB_PASSWORD=/Baloulee123
