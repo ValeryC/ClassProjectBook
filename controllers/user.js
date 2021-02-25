@@ -28,6 +28,9 @@ module.exports = (services) => {
                 res.status(400).json(err);
             }
         },
+        login: async (req, res) => {
+            console.log('route login')
+        }
     };
 
     return user_controller;

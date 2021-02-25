@@ -7,5 +7,6 @@ module.exports = (express, controllers) => {
         .post(controllers.user.register);
     router.route('/users/:id')
         .get(controllers.user.getById);
+    router.route('login').post(controllers.user.login)
     return router;
 };
