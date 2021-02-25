@@ -22,28 +22,47 @@
 DROP TABLE IF EXISTS `Users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Users` (
+CREATE TABLE `Users`
+(
   `id` int NOT NULL AUTO_INCREMENT,
-  `firstName` varchar(255) DEFAULT NULL,
-  `lastName` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
+  `firstName` varchar
+(255) DEFAULT NULL,
+  `lastName` varchar
+(255) DEFAULT NULL,
+  `email` varchar
+(255) DEFAULT NULL,
+  `password` varchar
+(255) DEFAULT NULL,
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`),
-  UNIQUE KEY `email_2` (`email`),
-  UNIQUE KEY `email_3` (`email`),
-  UNIQUE KEY `email_4` (`email`),
-  UNIQUE KEY `email_5` (`email`),
-  UNIQUE KEY `email_6` (`email`),
-  UNIQUE KEY `email_7` (`email`),
-  UNIQUE KEY `email_8` (`email`),
-  UNIQUE KEY `email_9` (`email`),
-  UNIQUE KEY `email_10` (`email`),
-  UNIQUE KEY `email_11` (`email`),
-  UNIQUE KEY `email_12` (`email`),
-  UNIQUE KEY `email_13` (`email`)
+  PRIMARY KEY
+(`id`),
+  UNIQUE KEY `email`
+(`email`),
+  UNIQUE KEY `email_2`
+(`email`),
+  UNIQUE KEY `email_3`
+(`email`),
+  UNIQUE KEY `email_4`
+(`email`),
+  UNIQUE KEY `email_5`
+(`email`),
+  UNIQUE KEY `email_6`
+(`email`),
+  UNIQUE KEY `email_7`
+(`email`),
+  UNIQUE KEY `email_8`
+(`email`),
+  UNIQUE KEY `email_9`
+(`email`),
+  UNIQUE KEY `email_10`
+(`email`),
+  UNIQUE KEY `email_11`
+(`email`),
+  UNIQUE KEY `email_12`
+(`email`),
+  UNIQUE KEY `email_13`
+(`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -53,10 +72,21 @@ CREATE TABLE `Users` (
 
 LOCK TABLES `Users` WRITE;
 /*!40000 ALTER TABLE `Users` DISABLE KEYS */;
-INSERT INTO `Users` VALUES (1,NULL,NULL,'toto','$2b$10$siO9qRCdwscQOaG6cvOT9eZo3qObT3NYcA3.UsIHAE38pmpsDhYS2','2021-02-06 21:20:17','2021-02-06 21:20:17'),
-(2,NULL,NULL,'test@test.fr','$2b$10$0XB0ZKYDlqjHz7BEag8hCunu5IcECCWZDLUr0/EBYFKXbT1noEmyi','2021-02-09 20:10:05','2021-02-09 20:10:05'),
-(6,NULL,NULL,'test2@test.fr','test1234',NULL,NULL),
-(7,NULL,NULL,'test33@test.fr','test1234',NULL,NULL),(8,NULL,NULL,'test3@test.fr','test1234',NULL,NULL),(10,NULL,NULL,'test332@test.fr','test1234',NULL,NULL),(12,NULL,NULL,'test3342@test.fr','test1234',NULL,NULL),(13,NULL,NULL,'tes2@test.fr','test1234',NULL,NULL),(14,NULL,NULL,'tscsfces2@test.fr','test1234',NULL,NULL),(15,NULL,NULL,'tscsfces2@test.frss','test1234',NULL,NULL),(20,NULL,NULL,'eff@df.fr','ee',NULL,NULL),(21,NULL,NULL,'eff@df.frd','ee',NULL,NULL);
+INSERT INTO `
+Users`
+VALUES
+  (1, NULL, NULL, 'toto', '$2b$10$siO9qRCdwscQOaG6cvOT9eZo3qObT3NYcA3.UsIHAE38pmpsDhYS2', '2021-02-06 21:20:17', '2021-02-06 21:20:17'),
+  (2, NULL, NULL, 'test@test.fr', '$2b$10$0XB0ZKYDlqjHz7BEag8hCunu5IcECCWZDLUr0/EBYFKXbT1noEmyi', '2021-02-09 20:10:05', '2021-02-09 20:10:05'),
+  (6, NULL, NULL, 'test2@test.fr', 'test1234', NULL, NULL),
+  (7, NULL, NULL, 'test33@test.fr', 'test1234', NULL, NULL),
+  (8, NULL, NULL, 'test3@test.fr', 'test1234', NULL, NULL),
+  (10, NULL, NULL, 'test332@test.fr', 'test1234', NULL, NULL),
+  (12, NULL, NULL, 'test3342@test.fr', 'test1234', NULL, NULL),
+  (13, NULL, NULL, 'tes2@test.fr', 'test1234', NULL, NULL),
+  (14, NULL, NULL, 'tscsfces2@test.fr', 'test1234', NULL, NULL),
+  (15, NULL, NULL, 'tscsfces2@test.frss', 'test1234', NULL, NULL),
+  (20, NULL, NULL, 'eff@df.fr', 'ee', NULL, NULL),
+  (21, NULL, NULL, 'eff@df.frd', 'ee', NULL, NULL);
 /*!40000 ALTER TABLE `Users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
