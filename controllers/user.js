@@ -1,4 +1,4 @@
-module.exports = (services) => {
+module.exports = (services, bcrypt) => {
     const user_controller = {
         getAll: async (req, res) => {
             let result = await services.user.getAll();
@@ -10,15 +10,12 @@ module.exports = (services) => {
             res.send(result);
         },
         register: async (req, res) => {
-            const firstname = req.body.firstname;
-            const lastname = req.body.lastname;
-            const email = req.body.email;
-            const password = req.body.password;
+            const { firstname, lastname, email, password } = req.body;
 
             try {
                 if (!firstname || !lastname|| !email || !password) res.status(400).json("missing parameters");
                 else {
-                    let hashedPassword = await services.bcrypt.hashPassword(password);
+                    let hashedPassword = await bcrypt.hashPassword(password, 10);
                     let result = await services.user.register([firstname, lastname, email, hashedPassword]);
                     let user = await services.user.getById(result.insertId);
                     // await services.mailer.sendMail(user);
@@ -29,8 +26,37 @@ module.exports = (services) => {
             }
         },
         login: async (req, res) => {
-            console.log('route login')
+            const { email, password } = req.body;
+            console.log('boddyy', req.body)
+            try {
+                if (!email || !password) {
+                    return res.status(400).json("missing parameters")
+                };
+                const userFound = await services.user.getUserByEmail(email);
+            if (userFound) {
+                console.log('pascal', userFound.password);
+                const isIdentified = await bcrypt.compare(password, userFound.password);
+        
+                if (isIdentified) {
+                    res.status(200).json({
+                        token: services.jwt.generateToken(userFound),
+                        user: {
+                            id: userFound.id,
+                            firstname: userFound.firstname,
+                            lastname: userFound.lastname,
+                        }
+                    });
+                } else {
+                    console.log('erreur login')
+                }
+            } else {
+                console.log('erreur login noUserFound')
+            }
+        
+        } catch (err) {
+            res.status(400).json(err);
         }
+    }
     };
 
     return user_controller;
