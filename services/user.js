@@ -1,5 +1,3 @@
-const repositories = require("../repositories");
-
 module.exports = (repositories) => {
     const user_service = {
         getAll: async (data) => {
