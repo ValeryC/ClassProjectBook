@@ -1,4 +1,4 @@
-module.exports = (services, bcrypt) => {
+module.exports = (services) => {
     const user_controller = {
         getAll: async (req, res) => {
             let result = await services.user.getAll();
@@ -10,16 +10,18 @@ module.exports = (services, bcrypt) => {
             res.send(result);
         },
         register: async (req, res) => {
+            const firstname = req.body.firstname;
+            const lastname = req.body.lastname;
             const email = req.body.email;
             const password = req.body.password;
-            const passwordHasch = await bcrypt.hash(password, 10);
-            console.log(passwordHasch)
+
             try {
-                if (!email || !password) res.status(400).json("missing parameters");
+                if (!firstname || !lastname|| !email || !password) res.status(400).json("missing parameters");
                 else {
-                    let result = await services.user.register([email, passwordHasch]);
+                    let hashedPassword = await services.bcrypt.hashPassword(password);
+                    let result = await services.user.register([firstname, lastname, email, hashedPassword]);
                     let user = await services.user.getById(result.insertId);
-                    await services.mailer.sendMail(user);
+                    // await services.mailer.sendMail(user);
                     res.status(201).json("new user registered");
                 }
             } catch (err) {

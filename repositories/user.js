@@ -4,7 +4,7 @@ module.exports = (models) => {
             return models.user.query("select * from Users");
         },
         register: async (data) => {
-            return models.user.query("INSERT INTO Users(email, password) VALUES (?, ?)", data)
+            return models.user.query("INSERT INTO Users(firstname, lastname, email, password) VALUES (?, ?, ?, ?)", data)
         },
         getById: async (id) => {
             return models.user.query("select * from Users where id = ? LIMIT 1", [id]);
