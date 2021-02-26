@@ -13,7 +13,7 @@ module.exports = (jwt) => {
       SECRET, { expiresIn: "24h" }
       );
       res.cookie('token', token, {
-        maxAge: 36,
+        maxAge: 3600000,
         secure: false,
         httpOnly: true,
       })
