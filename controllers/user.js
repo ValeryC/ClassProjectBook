@@ -13,8 +13,13 @@ module.exports = (services, bcrypt) => {
             const { firstname, lastname, email, password } = req.body;
 
             try {
-                if (!firstname || !lastname || !email || !password) res.status(400).json("missing parameters");
-                else {
+                if (!firstname || !lastname || !email || !password) {
+                    res.status(400).json("missing parameters");
+                } else {
+                    const checkUser = await services.user.getUserByEmail(email);
+                    if (checkUser) {
+                        res.status(409).json("User already exists")
+                    } else {
                     let hashedPassword = await bcrypt.hash(password, 10);
                     
                     let result = await services.user.register([firstname, lastname, email, hashedPassword]);
@@ -22,6 +27,8 @@ module.exports = (services, bcrypt) => {
                     // await services.mailer.sendMail(user);
                     res.status(201).json("new user registered");
                 }
+                }
+                
             } catch (err) {
                 res.status(400).json(err);
             }
