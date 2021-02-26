@@ -22,12 +22,7 @@ CREATE TABLE books
 
 
 
-
-
-
-
 // testé et approuvé
-
 CREATE TABLE catagory
     (id INT(11)AUTO_INCREMENT PRIMARY KEY,
         name varchar(255) NOT NULL,

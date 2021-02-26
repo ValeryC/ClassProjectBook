@@ -1,11 +1,24 @@
+const auth = require("../../middlewares/auth")
+
+
 module.exports = (express, controllers) => {
+
+
 
     const router = express.Router();
 
-    router.route('/users')
-        .get(controllers.user.getAll)
-        .post(controllers.user.register);
-    router.route('/users/:id')
-        .get(controllers.user.getById);
+    router.route('/register').get(controllers.user.login);
+    router.route('/book').get((req, res) => {
+        res.send("ok")
+    });
+
+
+    // .get(controllers.user.getAll)
+
+    // router.route('/users/:id')
+    //     .get(controllers.user.getById);
+
+
+
     return router;
 };
