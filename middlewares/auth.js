@@ -1,26 +1,24 @@
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
+require('dotenv').config;
 
+const SECRET = process.env.WT_SIGN_SECRET;
 
-module.exports = (req, res, next) => {
-    const token = req.cookies.jwt
-
+const verifyToken = async (req, res, next) => {
+  const token = req.cookies.token || '';
+  try {
     if (!token) {
-
-        return res.status(401).json({
-            auth: false,
-            message: "No token provided"
-        })
+      return res.status(401).json('You need to Login')
     }
-
-    // const parts = token.split(" ");
-
-    // if (!parts.length === 2)
-    //     return res.status(401).send({ error: "token error" });
-
-
-    jwt.verify(token, "rhrhhrhr", (err, decoded) => {
-        if (err) return res.status(401).send({ error: "token invalide" });
-        req.userId = decoded.id;
-        return next()
-    });
+    const decrypt = await jwt.verify(token, SECRET);
+    req.user = {
+      id: decrypt.id,
+      firstname: decrypt.firstname,
+    };
+    next();
+  } catch (err) {
+    return res.status(500).json(err.toString());
+  }
 };
+
+module.exports = verifyToken;
+

@@ -1,24 +1,15 @@
-const auth = require("../../middlewares/auth")
-
+const verifyToken = require('../../middlewares/auth');
 
 module.exports = (express, controllers) => {
 
-
-
     const router = express.Router();
 
-    router.route('/register').get(controllers.user.login);
-    router.route('/book').get((req, res) => {
-        res.send("ok")
-    });
-
-
-    // .get(controllers.user.getAll)
-
-    // router.route('/users/:id')
-    //     .get(controllers.user.getById);
-
-
-
+    router.route('/users')
+        .get(verifyToken, controllers.user.getAll)
+        .post(controllers.user.register);
+    router.route('/users/:id')
+        .get(controllers.user.getById);
+    router.route('/login')
+        .post(controllers.user.login);
     return router;
 };
