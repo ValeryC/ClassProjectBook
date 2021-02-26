@@ -1,6 +1,6 @@
 // controllers dépendencies
-const services = require('../services/index');
-const bcrypt = require('bcrypt')
+const services = require('../services/index'),
+    bcrypt = require('bcrypt');
 
 // controllers
 const user_controller = require('./user');

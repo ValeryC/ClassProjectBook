@@ -1,5 +1,5 @@
 // Repositories dépendencies
-const models = require('../db/models/index')
+const models = require('../db/models/index');
 
 // Repositories
 const user_repository = require('./user');
