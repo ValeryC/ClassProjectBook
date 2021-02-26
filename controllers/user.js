@@ -28,32 +28,26 @@ module.exports = (services, bcrypt) => {
         },
         login: async (req, res) => {
             const { email, password } = req.body;
-            console.log('boddyy', req.body)
             try {
                 if (!email || !password) {
                     return res.status(400).json("missing parameters")
                 };
                 const userFound = await services.user.getUserByEmail(email);
+
             if (userFound) {
                 const isIdentified = await bcrypt.compare(password, userFound.password);
                 const { id, firstname } = userFound;
-                if (isIdentified) {
 
-                    const expiration = process.env.DB_ENV === 'testing' ? 100 : 604800000;
-                    const token = services.jwt.generateToken(id, firstname)
-                    res.cookie('token', token, {
-                          expires: new Date(Date.now() + expiration),
-                          secure: false,
-                          httpOnly: true,
-                        })
-                    res.status(200).json({
-                        // token: services.jwt.generateToken(res, id, firstname),
-                        user: {
-                            id: userFound.id,
-                            firstname: userFound.firstname,
-                            lastname: userFound.lastname,
-                        }
-                    });
+                await services.jwt.generateToken(res, id, firstname)
+
+                if (isIdentified) {
+                res.status(200).json({
+                    user: {
+                        id: userFound.id,
+                        firstname: userFound.firstname,
+                        lastname: userFound.lastname,
+                    }
+                });
                 } else {
                     console.log('erreur login')
                 }
