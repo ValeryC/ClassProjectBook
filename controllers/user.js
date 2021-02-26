@@ -7,8 +7,9 @@ module.exports = (services, bcrypt) => {
         getById: async (req, res) => {
             const { id } = req.params;
             let result = await services.user.getById(id);
-            res.send(result);
+            res.send(result); ls
         },
+
         register: async (req, res) => {
             const { firstname, lastname, email, password } = req.body;
 

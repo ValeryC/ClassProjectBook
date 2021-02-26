@@ -17,8 +17,26 @@ CREATE TABLE books
         genre_id varchar(255) NOT NULL,
         author varchar(255)NOT NULL,
         quantity int NOT NULL DEFAULT 0
+
     )
+
+
+
 // testé et approuvé
+CREATE TABLE catagory
+    (id INT(11)AUTO_INCREMENT PRIMARY KEY,
+        name varchar(255) NOT NULL,
+    )
+
+CREATE TABLE genres
+    (id INT(11)AUTO_INCREMENT PRIMARY KEY,
+        name varchar(255) NOT NULL
+
+    )
+
+
+
+
 
 
 CREATE TABLE borrowed
@@ -79,10 +97,8 @@ SELECT * FROM books WHERE  nom and genre and category and author WHERE nom = "se
 
 
 
-
 5// Location dun livre   ok
 // Quad le client click sur loeur : on ajoute das la table  "borrowed " le nom du client et son id "on peut la recupérer dans le req.UserId grace au token "
-
 
 
 
@@ -92,4 +108,9 @@ SELECT * FROM books WHERE  nom and genre and category and author WHERE nom = "se
 SELECT * FROM wishlist WHERE book_id = "set?"
 
 // Si le result = 0 j'ajoute le livre dans la liste des souhaits
-INSERT INTO wishlist(user_id, book_id) VALUES(1, 2)
+INSERT INTO wishlist(Users_id, Books_id) VALUES(1, 2)
+
+
+
+INSERT INTO books(title, author, quantity, Genres_id)
+VALUES("Harry Potter 1", ["Fantasy", "Adventure"])

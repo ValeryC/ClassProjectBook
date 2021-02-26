@@ -3,6 +3,9 @@ module.exports = (models) => {
         getAll: async () => {
             return models.user.query("select * from Users");
         },
+        getWishlist: async (id) => {
+            return models.user.query("SELECT * FROM `Wishlist` WHERE Users_id = ? LIMIT 1", [id]);
+        },
         register: async (data) => {
             return models.user.query("INSERT INTO Users(firstname, lastname, email, password) VALUES (?, ?, ?, ?)", data)
         },
@@ -13,6 +16,6 @@ module.exports = (models) => {
             return models.user.query("select * from Users where id = ? LIMIT 1", [id]);
         }
     }
-    
+
     return user_repository;
 }

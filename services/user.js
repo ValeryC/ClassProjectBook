@@ -13,6 +13,10 @@ module.exports = (repositories) => {
         getById: async (id) => {
             const rows = await repositories.user.getById(id);
             return rows[0];
+        },
+        getById: async (id) => {
+            const rows = await repositories.user.getById(id);
+            return rows[0];
         }
     }
 
