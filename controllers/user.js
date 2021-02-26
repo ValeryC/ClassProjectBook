@@ -13,11 +13,12 @@ module.exports = (services, bcrypt) => {
             const { firstname, lastname, email, password } = req.body;
 
             try {
-                if (!firstname || !lastname|| !email || !password) res.status(400).json("missing parameters");
+                if (!firstname || !lastname || !email || !password) res.status(400).json("missing parameters");
                 else {
-                    let hashedPassword = await bcrypt.hashPassword(password, 10);
+                    let hashedPassword = await bcrypt.hash(password, 10);
+                    
                     let result = await services.user.register([firstname, lastname, email, hashedPassword]);
-                    let user = await services.user.getById(result.insertId);
+                    await services.user.getById(result.insertId);
                     // await services.mailer.sendMail(user);
                     res.status(201).json("new user registered");
                 }
@@ -34,12 +35,19 @@ module.exports = (services, bcrypt) => {
                 };
                 const userFound = await services.user.getUserByEmail(email);
             if (userFound) {
-                console.log('pascal', userFound.password);
                 const isIdentified = await bcrypt.compare(password, userFound.password);
-        
+                const { id, firstname } = userFound;
                 if (isIdentified) {
+
+                    const expiration = process.env.DB_ENV === 'testing' ? 100 : 604800000;
+                    const token = services.jwt.generateToken(id, firstname)
+                    res.cookie('token', token, {
+                          expires: new Date(Date.now() + expiration),
+                          secure: false,
+                          httpOnly: true,
+                        })
                     res.status(200).json({
-                        token: services.jwt.generateToken(userFound),
+                        // token: services.jwt.generateToken(res, id, firstname),
                         user: {
                             id: userFound.id,
                             firstname: userFound.firstname,

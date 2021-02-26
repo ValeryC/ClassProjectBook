@@ -4,20 +4,24 @@ const SECRET = process.env.WT_SIGN_SECRET;
 
 module.exports = (jwt) => {
   const auth_service = {
-    generateToken: async (res, id, firstname) => {
-     const expiration = process.env.DB_ENV === 'testing' ? 100 : 604800000;
+    generateToken: async (id, firstname) => {
+    try {
+    //  const expiration = process.env.DB_ENV === 'testing' ? 100 : 604800000;
     const token = await jwt.sign(
       {
         id, firstname
       },
       SECRET, { expiresIn: process.env.DB_ENV === 'testing' ? '1d' : '7d' }
     );
-    console.log('toto', token)
-    return await res.cookie('token', token, {
-      expires: new Date(Date.now() + expiration),
-      secure: false,
-      httpOnly: true,
-    });
+    // console.log('toto', token)
+      return await token;
+    // return await res.send('chocolat chaud')
+    // return res.cookie('token', token, {
+    //   expires: new Date(Date.now() + expiration),
+    //   secure: false,
+    //   httpOnly: true,
+    // }).send('ok');
+    } catch(err) {console.log('catch err', err)}
   },
 
   // authenticateJWT: (req, res, next) => {
