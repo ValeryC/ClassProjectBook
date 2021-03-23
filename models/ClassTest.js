@@ -1,4 +1,3 @@
-//zboub
 class Article {
     constructor(title, resume = null, content = null) {
         this.title = title;
@@ -10,7 +9,8 @@ class Article {
     setUser(user) {
         this.user = user;
     }
-}
+    
+  }
 
 class User {
 
