@@ -1,18 +1,34 @@
+const book = require('./Book')
+
 class WhisList {
-    
-  constructor(itemCount){
-  this.itemCount = itemCount; 
+
+  constructor(itemCount) {
+    this.itemCount = itemCount;
+    this.books = []
   }
 
-  
-  addBook(){}
+  getItemCount() {
+    return this.itemCount;
+  }
 
-  removeBook(){}
+  setItemCount(itemCount) {
 
-  clearWhishlist(){}
+  }
+
+  addBook(bookToAd) {
+    this.books.push(bookToAd)
+  }
+
+  clearWhishlist() {
+    this.books  = []
+  }
+
+  removeBook(bookToRemove) {
+    const index = this.books.indexOf(bookToRemove);
+    return this.books.splice(index, 1);
+  }
 
 }
-
 
 
 module.exports = WhisList

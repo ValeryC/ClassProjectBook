@@ -1,28 +1,44 @@
+const cart = require('./Cart')
 class User {
 
-  constructor(emailValue, passwordValue = null) {
-      this.email = emailValue;
-      this.password = passwordValue
-      this.articles = [];
-      console.log('coucou')
-  }
-  getEmail() {
-      return this.email;
-  }
+    constructor(id, emailValue, passwordValue, firstName, lastName, numberRented = 0) {
+        this.userId = id;
+        this.email = emailValue;
+        this.password = passwordValue;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.numberRented = numberRented;
+        carts = [];
 
-  viewArticles(filters) {
-      data = [{id: 1, title: 'tt', user: {email: 'ee', password: 'tt'}}, {id:2, title: 'ee'}];
-      data.forEach(articleData => {
+    }
 
-          let article = new Article(articleData.title);
-          let user = new User(articleData.user.email, articleData.user.password);
+    getUserId() {  
+       return this.userId 
+    }
 
-          article.setUser(user);
-          
-          this.articles.push(article);
-      });
-  }
+    getNumberRentend() {
+        return this.numberRented
+    }
 
+    getEmail() {
+        return this.email
+    }
+
+    login() {
+
+    }
+
+    logout() {
+
+    }
+
+    deleteAccount() {
+
+    }
+
+    getCarts() {
+        return this.carts
+    }
 
 }
 

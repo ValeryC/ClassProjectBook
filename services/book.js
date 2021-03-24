@@ -2,8 +2,28 @@ const repositories = require("../repositories");
 
 module.exports = (repositories) => {
     const book_service = {
-        getAll: async (data) => {
-            return repositories.book.getAll();
+        getAllWithFilter: async (data, author, bookName, isBorrowed) => {            
+                queryBuilder = [];
+
+                if (author != null) {
+                    queryBuilder.push(" author = " + author)
+                }
+
+                if (bookName != null) {
+                    queryBuilder.push(" book_name = " + bookName)
+                }
+
+                if (isBorrowed != null) {
+                    queryBuilder.push(" is_borrowed = " + isBorrowed)
+                }
+
+                halfQuery = queryBuilder.join(" AND");
+
+                if (halfQuery != "") {
+                    halfQuery = " WHERE" + halfQuery
+                }
+
+                return repositories.book.getAll(data, halfQuery);            
         },
 
         getWishlist: async (id) => {
@@ -12,25 +32,21 @@ module.exports = (repositories) => {
         },
 
 
-        checkBookQuantity: async (id) => {
-            const rows = await repositories.book.checkBookQuantity(id);
-            const quantity = rows.map(item => item.quantity)
-            return quantity[0]
-
-        },
-        subtractedBookQuantity: async (id) => {
-            const rows = await repositories.book.subtractedBookQuantity(id);
+        checkBookQuantity: async (author, bookName) => {
+            const rows = await repositories.book.checkBookQuantity(author, bookname);
             return rows;
 
-        },
-
-        createBorrowed: async (Users_id, Books_id) => {
-            const rows = await repositories.book.createBorrowed(Users_id, Books_id);
-            return rows;
-
-        },
+        }
 
     }
 
     return book_service;
 }
+
+// git branch
+// git diff filename 
+// git status 
+// git add filename
+// git commit -m'[feature]message'
+// git push
+// :)
